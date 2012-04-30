@@ -49,7 +49,8 @@ public class PositionStorage extends Observable{
 	 * Returns last 'count' positions
 	 * if there is not enought, it will return lesser
 	 * @param count
-	 * @return subset of positions (which is in the end)
+	 * @return subset of positions (which is in the end)exit
+	 * 
 	 * @throws NoSuchFieldException
 	 */
 	List<Position> getLastPositions(int count) throws NoSuchFieldException{
