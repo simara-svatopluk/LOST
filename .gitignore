@@ -19,3 +19,4 @@ local.properties
 project.properties
 *~
 .classpath
+.settings/
