@@ -42,8 +42,8 @@ public class Position {
 	public void setAltitude(double altitude) {
 		this.altitude = altitude;
 	}
-	
 	public Position(Date time, double lat, double lon, double altitude){
+	
 		this.time = time;
 		this.lat = lat;
 		this.lon = lon;

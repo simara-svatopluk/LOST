@@ -20,7 +20,7 @@ public class PositionStorage extends Observable{
 	 * Add one position on the end of list
 	 * @param p
 	 */
-	void addPosition(Position p){
+	public void addPosition(Position p){
 		positions.add(p);
 	}
 	
@@ -29,7 +29,7 @@ public class PositionStorage extends Observable{
 	 * @return last position
 	 * @throws NoSuchFieldException
 	 */
-	Position getLastPosition() throws NoSuchFieldException{
+	public Position getLastPosition() throws NoSuchFieldException{
 		if (!positions.isEmpty()) {
 			return positions.get(positions.size()-1);
 		}
@@ -41,23 +41,28 @@ public class PositionStorage extends Observable{
 	 * returns all positions as list
 	 * @return list of all positions
 	 */
-	List<Position> getAll(){
+	public List<Position> getAll(){
 		return positions;
 	}
 	
 	/**
 	 * Returns last 'count' positions
-	 * if there is not enought, it will return lesser
+	 * if there is not enough items, it will return lesser
 	 * @param count
 	 * @return subset of positions (which is in the end)exit
 	 * 
 	 * @throws NoSuchFieldException
+	 * @throws IllegalArgumentException
 	 */
-	List<Position> getLastPositions(int count) throws NoSuchFieldException{
+	public List<Position> getLastPositions(int count) throws NoSuchFieldException, IllegalArgumentException{
+		
+		if(count <= 0)
+			throw new IllegalArgumentException();
+		
 		if(positions.isEmpty())
 			throw new NoSuchFieldException();
 		
-		int end = positions.size() - 1;
+		int end = positions.size();
 		int start = end - count;
 		
 		if(start < 0)
