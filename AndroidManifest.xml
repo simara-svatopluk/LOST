@@ -30,6 +30,9 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".StatisticsActivity">
+        </activity>
+        
         <service android:name=".PositionUpdater">
         </service>
         
