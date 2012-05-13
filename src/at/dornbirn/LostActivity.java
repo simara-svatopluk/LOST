@@ -21,7 +21,10 @@ public class LostActivity extends MapActivity {
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
         
-        startService(new Intent(this, PositionUpdater.class)); // start positioning service
+        /*
+         * TODO start service in another thread
+         */
+        //startService(new Intent(this, PositionUpdater.class)); // start positioning service
         
         Button toStatistics = (Button) this.findViewById(R.id.main_to_statistics);
         toStatistics.setOnClickListener(new OnClickListener(){
