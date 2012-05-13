@@ -15,11 +15,11 @@ import android.content.*;
 
 
 /**
- * Class responsible for calculating most probable actual position
+ * Service responsible for calculating most probable actual position
+ * and updating PositionStorage
  * @author oddspider
  *
  */
-
 public class PositionUpdater extends Service implements LocationListener
 {
 	private static final String TAG = PositionUpdater.class.getSimpleName();
@@ -27,20 +27,8 @@ public class PositionUpdater extends Service implements LocationListener
 	private PositionStorage positionStorage;
 	
 	private LocationManager lm;
-//	private PositionStorage storage;	
 	
 	
-	
-	/*
-	public PositionUpdater(LocationManager lm, PositionStorage storage)
-	{
-	/*	this.storage = storage;
-		this.lm = lm;
-	    
-	    Location lastloc = lm.getLastKnownLocation("network");   	    
-	    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);	    
-	    int a = 2+2;    	
-	}*/
 	
 	// called only once, first time service is started
 	public void onCreate()
