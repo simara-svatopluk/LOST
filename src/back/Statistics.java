@@ -159,7 +159,6 @@ public class Statistics implements Observer
 		}
 	}
 
-	@Override
 	public void update(Observable storage, Object data){
 		Position position = (Position)data;
 		

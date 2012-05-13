@@ -3,6 +3,9 @@ package at.dornbirn;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -43,5 +46,34 @@ public class StatisticsActivity extends Activity {
 		
 		
 	}
+	
+	
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+    	new MenuInflater (this).inflate(R.menu.menu1, menu);
+    	
+		return super.onCreateOptionsMenu(menu);   
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	switch (item.getItemId())
+    	{
+    		case R.id.itemStats:
+    		
+    			return true;
+    		case R.id.itemNewPlan:	    		
+    			startActivity(new Intent(this, PlanActivity.class));
+    			return true;
+    		case R.id.itemCurrentPlan:
+    			startActivity(new Intent(this, LostActivity.class));
+    			return true;
+    	}
+    
+    	return super.onOptionsItemSelected(item);
+    }
 	
 }

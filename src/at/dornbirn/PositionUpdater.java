@@ -78,17 +78,16 @@ public class PositionUpdater extends Service implements LocationListener
 	}
 
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-
+		Log.d(TAG, "Provider Disabled");
 	}
 
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
+		Log.d(TAG, "Provider Enabled");
 
 	}
 
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
+		Log.d(TAG, "Status changed");
 
 	}
 

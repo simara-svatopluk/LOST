@@ -33,6 +33,9 @@
         <activity android:name=".StatisticsActivity">
         </activity>
         
+        <activity android:name=".PlanActivity">
+        </activity>
+        
         <service android:name=".PositionUpdater">
         </service>
         
