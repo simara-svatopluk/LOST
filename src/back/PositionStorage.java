@@ -22,7 +22,7 @@ public class PositionStorage extends Observable{
 	 */
 	public void addPosition(Position p){
 		positions.add(p);
-		this.notifyObservers();
+		notifyObservers(p);
 	}
 	
 	/**
@@ -35,7 +35,6 @@ public class PositionStorage extends Observable{
 			return positions.get(positions.size()-1);
 		}
 		throw new NoSuchFieldException();
-
 	}
 	
 	/**
