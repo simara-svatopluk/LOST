@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/statistics"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:id="@+id/statistics_to_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/map" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView1" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="@string/total_distance"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginRight="10dp"
+                />
+            <TextView 
+                android:id="@+id/statistics_total_distance"
+                android:layout_marginRight="10dp"
+            />
+            <TextView
+                android:text = "@string/km"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="@string/total_time"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginRight="10dp"
+                />
+            <TextView 
+                android:id="@+id/statistics_total_time"
+                android:layout_marginRight="10dp"
+            />
+            <TextView
+                android:text = "@string/h"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="@string/total_speed"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginRight="10dp"
+                />
+            <TextView 
+                android:id="@+id/statistics_total_speed"
+                android:layout_marginRight="10dp"
+            />
+            <TextView
+                android:text = "@string/km_h"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="@string/actual_speed"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginRight="10dp"
+                />
+            <TextView 
+                android:id="@+id/statistics_actual_apeed"
+                android:layout_marginRight="10dp"
+            />
+            <TextView
+                android:text = "@string/km_h"
+                />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

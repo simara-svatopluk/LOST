@@ -3,4 +3,15 @@
 
     <string name="hello">Hello World, LostActivity!</string>
     <string name="app_name">Lost</string>
+    <string name="statistics">Statistics</string>
+    <string name="map">Map</string>
+    <string name="total_distance">Total distance</string>
+    <string name="total_time">Total time</string>
+    <string name="total_speed">Average speed</string>
+    <string name="actual_speed">Actual speed</string>
+    <string name="km">km</string>
+    <string name="h">h</string>
+    <string name="km_h">km/h</string>
+    
+    
 </resources>
