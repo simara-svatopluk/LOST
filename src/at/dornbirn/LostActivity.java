@@ -14,7 +14,7 @@ public class LostActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        MapView mapView = (MapView) findViewById(R.id.mapview);    
+        MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
     }
 
