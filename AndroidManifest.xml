@@ -36,6 +36,12 @@
         <activity android:name=".PlanActivity">
         </activity>
         
+        <activity android:name=".PosViewActivity">
+        </activity>
+        
+        <activity android:name=".SettingsActivity">
+        </activity>
+        
         <service android:name=".PositionUpdater">
         </service>
         

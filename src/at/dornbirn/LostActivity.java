@@ -24,7 +24,7 @@ public class LostActivity extends MapActivity {
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-       // startService(new Intent(this, PositionUpdater.class)); // start positioning service
+        startService(new Intent(this, PositionUpdater.class)); // start positioning service
         
         Button toStatistics = (Button) this.findViewById(R.id.main_to_statistics);
         
@@ -57,6 +57,9 @@ public class LostActivity extends MapActivity {
     			startActivity(new Intent(this, PlanActivity.class));
     			return true;
     		case R.id.itemCurrentPlan:
+    			return true;
+    		case R.id.itemSettings:
+    			startActivity(new Intent(this, SettingsActivity.class));
     			return true;
     	}
     
