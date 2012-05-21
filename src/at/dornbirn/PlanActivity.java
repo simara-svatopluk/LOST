@@ -40,6 +40,9 @@ public class PlanActivity extends MapActivity {
 	    		case R.id.itemCurrentPlan:
 	    			startActivity(new Intent(this, LostActivity.class));
 	    			return true;
+	    		case R.id.itemSettings:
+	    			startActivity(new Intent(this, SettingsActivity.class));
+	    			return true;
 	    	}
 	    
 	    	return super.onOptionsItemSelected(item);

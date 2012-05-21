@@ -51,6 +51,7 @@ public class PositionUpdater extends Service implements LocationListener
 		Log.d(TAG, "On start command");
 		
 		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 		
 		return START_STICKY;
 	}
@@ -66,7 +67,7 @@ public class PositionUpdater extends Service implements LocationListener
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		
-		Position newPos = new Position(null, location.getLatitude(), location.getLongitude(), location.getAltitude());
+		Position newPos = new Position(new Date(), location.getLatitude(), location.getLongitude(), location.getAltitude());
 		
 		positionStorage.addPosition(newPos);
 		
