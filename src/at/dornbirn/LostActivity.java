@@ -1,13 +1,12 @@
 package at.dornbirn;
 
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
+import java.io.File;
+import org.mapsforge.android.maps.MapActivity;
+import org.mapsforge.android.maps.MapView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 public class LostActivity extends MapActivity {
 	MapView mapView;
@@ -16,24 +15,19 @@ public class LostActivity extends MapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        
-        MapView mapView = (MapView) findViewById(R.id.mapview);
+
+        MapView mapView = new MapView(this);
+        mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
+        mapView.setMapFile(new File("/sdcard/maps/austria.map"));
+        
+        setContentView(mapView);
         
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-        startService(new Intent(this, PositionUpdater.class)); // start positioning service
-        
-        Button toStatistics = (Button) this.findViewById(R.id.main_to_statistics);
-        
-        
-        toStatistics.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				LostActivity.this.startActivity(new Intent(LostActivity.this, StatisticsActivity.class));
-			}
-        });
+        //startService(new Intent(this, PositionUpdater.class)); // start positioning service
+
         
     }
     
@@ -65,15 +59,6 @@ public class LostActivity extends MapActivity {
     
     	return super.onOptionsItemSelected(item);
     }
-    
-    
-    
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
     
     
 }

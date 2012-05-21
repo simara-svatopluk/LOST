@@ -23,14 +23,6 @@ public class StatisticsActivity extends Activity {
 		
 		this.setContentView(R.layout.statistics);
 		
-		Button toMap = (Button) this.findViewById(R.id.statistics_to_map);
-		
-		toMap.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				StatisticsActivity.this.startActivity(new Intent(StatisticsActivity.this, LostActivity.class));
-			}
-		});
-		
 		TextView totalDistance = (TextView) this.findViewById(R.id.statistics_total_distance);
 		totalDistance.setText("10");
 		
