@@ -48,6 +48,10 @@
         <service android:name=".PositionUpdater">
         </service>
         
+        <service android:name="back.DisconnectedPositionUpdater">
+        </service>
+        
+        
     </application>
 
     
