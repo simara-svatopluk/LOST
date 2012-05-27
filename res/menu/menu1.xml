@@ -4,6 +4,7 @@
     <item android:id="@+id/itemCurrentPlan" android:title="Current plan" android:icon="@android:drawable/ic_menu_view"></item>
     <item android:id="@+id/itemStats" android:title="Statistics" android:icon="@android:drawable/ic_menu_sort_by_size"></item>
     <item android:id="@+id/itemSettings" android:icon="@android:drawable/ic_menu_manage" android:title="Settings"></item>
+    <item android:id="@+id/itemDownload" android:title="Download Map" android:icon="@android:drawable/ic_menu_view"></item>
     
     
 </menu>

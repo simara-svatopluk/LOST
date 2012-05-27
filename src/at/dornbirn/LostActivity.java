@@ -19,7 +19,7 @@ public class LostActivity extends MapActivity {
         MapView mapView = new MapView(this);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setMapFile(new File("/sdcard/maps/austria.map"));
+        mapView.setMapFile(new File("/sdcard/maps/albania.map"));
         
         setContentView(mapView);
         
@@ -55,6 +55,9 @@ public class LostActivity extends MapActivity {
     		case R.id.itemSettings:
     			startActivity(new Intent(this, SettingsActivity.class));
     			return true;
+    		case R.id.itemDownload:
+    			startActivity(new Intent(this, DownloadMapActivity.class));
+    		
     	}
     
     	return super.onOptionsItemSelected(item);

@@ -45,6 +45,9 @@
         <activity android:name=".SettingsActivity">
         </activity>
         
+        <activity android:name=".DownloadMapActivity">
+        </activity>
+        
         <service android:name=".PositionUpdater">
         </service>
         
