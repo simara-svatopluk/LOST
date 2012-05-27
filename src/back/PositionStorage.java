@@ -22,6 +22,7 @@ public class PositionStorage extends Observable{
 	 */
 	public void addPosition(Position p){
 		positions.add(p);
+		setChanged();
 		notifyObservers(p);
 	}
 	
