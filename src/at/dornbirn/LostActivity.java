@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 
 public class LostActivity extends MapActivity implements Observer{
@@ -69,7 +70,7 @@ public class LostActivity extends MapActivity implements Observer{
      * Creates overlay on mapView
      */
     protected void createOverlay(){
-        Paint outline = lineColor(Color.MAGENTA);    
+        Paint outline = lineColor(Color.MAGENTA);
         overlay = new ArrayWayOverlay(null, outline);
         mapView.getOverlays().add(overlay);
     }
@@ -79,10 +80,10 @@ public class LostActivity extends MapActivity implements Observer{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MapView mapView = new MapView(this);
+        mapView = new MapView(this);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setMapFile(new File("/sdcard/maps/albania.map"));
+        mapView.setMapFile(new File("/sdcard/maps/andorra.map"));
         
         setContentView(mapView);
         
@@ -97,7 +98,7 @@ public class LostActivity extends MapActivity implements Observer{
         /*
          * OR turn On DisconnectedPositionUpdater 
          */
-        //startService(new Intent(this, DisconnectedPositionUpdater.class));
+        startService(new Intent(this, DisconnectedPositionUpdater.class));
 
         
     }
@@ -136,7 +137,7 @@ public class LostActivity extends MapActivity implements Observer{
     			startActivity(new Intent(this, SettingsActivity.class));
     			return true;
     		case R.id.itemDownload:
-    			startActivity(new Intent(this, DownloadMapActivity.class));
+    			startActivity(new Intent(this, MapListActivity.class));
     		
     	}
     

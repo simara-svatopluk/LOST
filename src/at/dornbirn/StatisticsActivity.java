@@ -67,7 +67,7 @@ public class StatisticsActivity extends Activity {
     			startActivity(new Intent(this, SettingsActivity.class));
     			return true;
     		case R.id.itemDownload:
-    			startActivity(new Intent(this, DownloadMapActivity.class));
+    			startActivity(new Intent(this, MapListActivity.class));
     	}
     
     	return super.onOptionsItemSelected(item);

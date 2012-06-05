@@ -8,9 +8,9 @@
     
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.SET_DEBUG_APP"/>
-	
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
 	
     <application
@@ -45,7 +45,10 @@
         <activity android:name=".SettingsActivity">
         </activity>
         
-        <activity android:name=".DownloadMapActivity">
+        <activity android:name=".MapListActivity">
+        </activity>
+        
+        <activity android:name=".DownloadNewMapActivity">
         </activity>
         
         <service android:name=".PositionUpdater">

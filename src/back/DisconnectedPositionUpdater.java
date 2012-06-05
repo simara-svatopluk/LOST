@@ -50,7 +50,7 @@ public class DisconnectedPositionUpdater extends Service{
 	private PositionStorage positionStorage;
 	
 	//default values
-	private double lat = 48.207570, lon = 16.374144, alt = 151;
+	private double lat = 41, lon = 20, alt = 151;
 	private int delay = 500;
 	
 	private int step = 0;
