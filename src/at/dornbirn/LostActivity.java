@@ -83,7 +83,7 @@ public class LostActivity extends MapActivity implements Observer{
         mapView = new MapView(this);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setMapFile(new File("/sdcard/maps/andorra.map"));
+        mapView.setMapFile(new File("/sdcard/maps/austria.map"));
         
         setContentView(mapView);
         

@@ -50,7 +50,7 @@ public class DisconnectedPositionUpdater extends Service{
 	private PositionStorage positionStorage;
 	
 	//default values
-	private double lat = 41, lon = 20, alt = 151;
+	private double lat = 48.202625, lon = 16.393231, alt = 151;
 	private int delay = 500;
 	
 	private int step = 0;
@@ -76,7 +76,7 @@ public class DisconnectedPositionUpdater extends Service{
 		double newAlt = alt + Math.cos(x)*20;
 		Date newDate = new Date();
 		Position p = new Position(newDate, newLat, lon, newAlt);
-		Log.d(TAG, newDate.toString() + " " + newLat + " " + lon + " " + newAlt);
+		//Log.d(TAG, newDate.toString() + " " + newLat + " " + lon + " " + newAlt);
 		lon += 0.001;
 		positionStorage.addPosition(p);
 	}
