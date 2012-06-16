@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import back.*;
 
-public class PosViewActivity extends ListActivity 
+public class PosViewActivity extends ListActivity implements Observer
 {
 	private static final String TAG = PosViewActivity.class.getSimpleName();
 	private PositionStorage positionStorage;
@@ -34,6 +34,8 @@ public class PosViewActivity extends ListActivity
 		private List<Position> list;
 		private Context context; 
 		private int id;
+		
+		private int c; // number of elements
 		
 		public PosListAdapter(Context context, int id, List<Position> list)
 		{
@@ -49,6 +51,9 @@ public class PosViewActivity extends ListActivity
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
 			View row = convertView;
+			
+			c = list.size();
+			
 			if(row == null)
 			{
 				LayoutInflater inflater = ((Activity)context).getLayoutInflater();
@@ -65,21 +70,23 @@ public class PosViewActivity extends ListActivity
 			DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.MEDIUM);
 			DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
 			
-			Date date = list.get(position).getTime();			
+			Date date = list.get(c-position-1).getTime();			
 			
 			
-			lat.setText( "lat: " + String.valueOf(list.get(position).getLat())  );
-			lon.setText( "lon: " + String.valueOf(list.get(position).getLon())  );
+			lat.setText( "lat: " + String.valueOf(list.get(c-position-1).getLat())  );
+			lon.setText( "lon: " + String.valueOf(list.get(c-position-1).getLon())  );
 			time.setText( timeFormat.format(date)  );
 			ldate.setText( dateFormat.format(date));
 			
-			alt.setText( "alt: " +  String.valueOf(list.get(position).getAltitude()) );
+			alt.setText( "alt: " +  String.valueOf(list.get(c-position-1).getAltitude()) );
 			
 			return row;
 			
 		}
 	
 	}
+	
+	private PosListAdapter listAdapter;
 	
 	
 	
@@ -90,8 +97,10 @@ public class PosViewActivity extends ListActivity
         
         positionStorage = ((LostApplication) this.getApplication()).getPositionStorage();
         
+        positionStorage.addObserver(this);
         
-        setListAdapter(new PosListAdapter(this, R.layout.list_pos, positionStorage.getAll()));
+        listAdapter = new PosListAdapter(this, R.layout.list_pos, positionStorage.getAll());
+        setListAdapter(listAdapter);
 	
         Log.d(TAG, "On create after");
 	}
@@ -131,5 +140,31 @@ public class PosViewActivity extends ListActivity
     
     	return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		Log.d(TAG, "update before");
+		
+		
+		// run on UI thread - only main thread can change UI
+		this.runOnUiThread(
+				new Runnable() {
+						public void run()
+						{
+							listAdapter.notifyDataSetChanged();
+						}				
+	    });
+		
+		Log.d(TAG, "update after");
+		
+		
+		
+		
+	}
 
 }

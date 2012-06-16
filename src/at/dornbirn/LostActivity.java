@@ -94,11 +94,13 @@ public class LostActivity extends MapActivity implements Observer{
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-        //startService(new Intent(this, PositionUpdater.class)); // start positioning service
+        startService(new Intent(this, PositionUpdater.class)); // start positioning service
         /*
          * OR turn On DisconnectedPositionUpdater 
          */
-        startService(new Intent(this, DisconnectedPositionUpdater.class));
+         // startService(new Intent(this, DisconnectedPositionUpdater.class));
+        
+        
 
         
     }
