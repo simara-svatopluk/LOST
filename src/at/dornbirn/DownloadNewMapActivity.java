@@ -24,7 +24,7 @@ public class DownloadNewMapActivity extends Activity{
 	private ListView mapNames;  
 	private ArrayList<String> incomingDataList; 
 	BufferedReader reader = null;
-	
+
 	@Override 
 	 protected void onCreate(Bundle savedInstanceState) {  
 		 super.onCreate(savedInstanceState);
@@ -35,14 +35,16 @@ public class DownloadNewMapActivity extends Activity{
 		 
 		 mapNames.setOnItemClickListener(new OnItemClickListener() { 			 
 				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {								
+				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+					
 					Object o = mapNames.getItemAtPosition(position);  
 					File externalStorage = Environment.getExternalStorageDirectory(); 
 					String path = externalStorage.getAbsolutePath();
-
+					
 					URL url;
-					try {
+					try {				
 						url = new URL("http://download.mapsforge.org/maps/europe/" + o.toString());
+						
 						HttpURLConnection con = (HttpURLConnection) url.openConnection();
 						
 						reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -74,5 +76,4 @@ public class DownloadNewMapActivity extends Activity{
 		 incomingDataList = extra.getStringArrayList("countries");  
 		 mapNames.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, incomingDataList));	 
 	 }
-
 }
