@@ -5,14 +5,20 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.location.Location;
+import android.util.Log;
 
 /**
  * Statistic calculation using PositionStorage
  * @author fafin
  *
  */
-public class Statistics implements Observer
+public class Statistics extends Observable implements Observer
 {
+	public static final int KM = 1000;
+	public static final int MS = 1000;
+	public static final int HOUR = 3600;
+	public static final int MINUTE = 60;
+	
 	/**
 	 * When we are using Location.distanceBetween,
 	 * result has exactly 3 items
@@ -23,10 +29,10 @@ public class Statistics implements Observer
 	 * Count of points from which is calculated
 	 * actual information
 	 */
-	private final static int ACTUAL_POINTS_COUNT = 10;
+	private final static int ACTUAL_POINTS_COUNT = 2;
 	
 	/**
-	 * Total distance during trip in kilometers (m)
+	 * Total distance during trip in meters (m)
 	 */
 	protected double totalDistance;
 	
@@ -36,28 +42,33 @@ public class Statistics implements Observer
 	protected double totalTime;
 	
 	/**
-	 * Actual speed
+	 * Actual speed (m/s)
 	 */
 	protected double actualSpeed;
 	
+	private String TAG = "Statistics";
 	
+	/**
+	 * total distance in KM
+	 * @return
+	 */
 	public double getTotalDistance() {
-		return totalDistance;
+		return totalDistance / KM;
 	}
 
 	public double getTotalTime() {
-		return totalTime;
+		return totalTime / HOUR;
 	}
 	
 	public double getTotalSpeed(){
 		if(totalTime == 0)
 			return 0;
 		
-		return totalDistance/totalTime;
+		return getTotalDistance() / getTotalTime();
 	}
 	
 	public double getActualSpeed(){
-		return actualSpeed;
+		return actualSpeed / KM * HOUR;
 	}
 
 	/**
@@ -100,8 +111,11 @@ public class Statistics implements Observer
 	 * @param p2
 	 * @return
 	 */
-	protected static double timeDiff(Position p1, Position p2){
-		return p1.getTime().compareTo(p2.getTime());
+	protected double timeDiff(Position p1, Position p2){
+		long ms1 = p1.getTime().getTime();
+		long ms2 = p2.getTime().getTime();
+		
+		return 1.0 * (ms2 - ms1) / MS;
 	}
 	
 	
@@ -119,7 +133,7 @@ public class Statistics implements Observer
 	 * @param newPosition
 	 * @return
 	 */
-	protected double timeToNew(Position newPosition){
+	protected double timeToNew(Position newPosition){		
 		return timeDiff(lastPosition, newPosition);
 	}
 	
@@ -160,15 +174,24 @@ public class Statistics implements Observer
 	}
 
 	public void update(Observable storage, Object data){
+		//Log.d(TAG, "updating");
+		
 		Position position = (Position)data;
 		
 		if(lastPosition == null){
 			lastPosition = position;
+			return;
 		}
 		
 		totalDistance += distanceToNew(position);
 		totalTime += timeToNew(position);
+		
 		updateActualSpeed((PositionStorage) storage);
+		
+		lastPosition = position;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	

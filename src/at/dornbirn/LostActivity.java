@@ -83,7 +83,7 @@ public class LostActivity extends MapActivity implements Observer{
         mapView = new MapView(this);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setMapFile(new File("/sdcard/maps/andorra.map"));
+        mapView.setMapFile(new File("/sdcard/maps/austria.map"));
         
         setContentView(mapView);
         
@@ -94,11 +94,13 @@ public class LostActivity extends MapActivity implements Observer{
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-        //startService(new Intent(this, PositionUpdater.class)); // start positioning service
+        startService(new Intent(this, PositionUpdater.class)); // start positioning service
         /*
          * OR turn On DisconnectedPositionUpdater 
          */
-        startService(new Intent(this, DisconnectedPositionUpdater.class));
+         // startService(new Intent(this, DisconnectedPositionUpdater.class));
+        
+        
 
         
     }

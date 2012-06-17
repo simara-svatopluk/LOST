@@ -39,6 +39,15 @@ public class PositionUpdater extends Service implements LocationListener
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);	
 		
 		positionStorage = ((LostApplication) this.getApplication()).getPositionStorage();
+		
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		
+		
+		Location last = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);		
+		if(last != null)
+		{
+			positionStorage.addPosition( new Position(new Date(), last.getLatitude(), last.getLongitude(), last.getAltitude()));
+		}
 			    
 		
 		
@@ -50,8 +59,8 @@ public class PositionUpdater extends Service implements LocationListener
 	{
 		Log.d(TAG, "On start command");
 		
-		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+	//	lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+		
 		
 		return START_STICKY;
 	}
