@@ -20,12 +20,15 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
+import android.widget.ToggleButton;
 
 public class LostActivity extends MapActivity implements Observer{
 	
 	MapView mapView;
 	Position lastPosition = null;
 	ArrayWayOverlay overlay;
+	
+	boolean locked = false;
 	
 	private static final String TAG = LostActivity.class.getSimpleName();
 	
@@ -80,12 +83,14 @@ public class LostActivity extends MapActivity implements Observer{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mapView = new MapView(this);
+        
+        setContentView(R.layout.map_view);
+        
+        mapView = (MapView) findViewById(R.id.mapview);
+        
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
         mapView.setMapFile(new File("/sdcard/maps/austria.map"));
-        
-        setContentView(mapView);
         
         createOverlay();
         
@@ -94,11 +99,11 @@ public class LostActivity extends MapActivity implements Observer{
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-        startService(new Intent(this, PositionUpdater.class)); // start positioning service
+      //  startService(new Intent(this, PositionUpdater.class)); // start positioning service
         /*
          * OR turn On DisconnectedPositionUpdater 
          */
-         // startService(new Intent(this, DisconnectedPositionUpdater.class));
+          startService(new Intent(this, DisconnectedPositionUpdater.class));
         
         
 
@@ -112,6 +117,11 @@ public class LostActivity extends MapActivity implements Observer{
 			addLine(new GeoPoint(lastPosition.getLat(), lastPosition.getLon()), new GeoPoint(p.getLat(), p.getLon()));
 		}
 		lastPosition = p;
+		
+		if(locked)
+		{
+			mapView.setCenter(new GeoPoint(lastPosition.getLat(), lastPosition.getLon()));
+		}
 	}
     
     @Override
@@ -146,5 +156,26 @@ public class LostActivity extends MapActivity implements Observer{
     	return super.onOptionsItemSelected(item);
     }
     
+    
+    public void bLockClicked(View view)
+    {
+    	ToggleButton b = (ToggleButton) view;
+    	
+    	if(b.isChecked())
+    	{
+    		locked = true;
+    		mapView.setClickable(false);
+    		
+    	}
+    	else 
+    	{
+    		locked = false;
+    		mapView.setClickable(true);
+    		mapView.setCenter(new GeoPoint(lastPosition.getLat(), lastPosition.getLon()));
+    	}
+    	
+    	
+    	
+    }
     
 }
