@@ -54,6 +54,9 @@
         <activity android:name=".DownloadNewMapActivity">
         </activity>
         
+         <activity android:name=".CurrentMapsActivity">
+        </activity>
+        
         <service android:name=".PositionUpdater">
         </service>
         

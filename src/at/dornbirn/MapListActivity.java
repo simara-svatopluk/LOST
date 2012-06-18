@@ -22,10 +22,10 @@ public class MapListActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.download);	
+    	setContentView(R.layout.map_options);	
     	
-    	Button button = (Button) findViewById(R.id.button1);
-    	button.setOnClickListener(new View.OnClickListener() {
+    	Button buttonNew = (Button) findViewById(R.id.button1);
+    	buttonNew.setOnClickListener(new View.OnClickListener() {
     		BufferedReader reader = null;
     		private ArrayList<String> countries = new ArrayList<String>(); 
 			ArrayList<String> tokens = new ArrayList<String>();
@@ -77,6 +77,16 @@ public class MapListActivity extends Activity{
 				}
 			}
 		});
+    	
+    	Button buttonCurrent = (Button) findViewById(R.id.button2);
+    	buttonCurrent.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), CurrentMapsActivity.class);
+				startActivity(intent);
+			}
+    	});
     }
     
     @Override
@@ -92,7 +102,7 @@ public class MapListActivity extends Activity{
     {
     	switch (item.getItemId())
     	{
-    		case R.id.itemDownload:
+    		case R.id.itemMaps:
     			return true;
     		case R.id.itemStats:
     			startActivity(new Intent(this, StatisticsActivity.class));

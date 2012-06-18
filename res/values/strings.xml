@@ -12,6 +12,8 @@
     <string name="km">km</string>
     <string name="h">h</string>
     <string name="km_h">km/h</string>
+    <string name="downloadNewMap">Download new map</string>
+    <string name="currentMaps">Current Maps</string>
     
     
 </resources>

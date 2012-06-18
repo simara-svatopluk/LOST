@@ -1,6 +1,7 @@
 package at.dornbirn;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.*;
 
@@ -26,6 +28,7 @@ public class LostActivity extends MapActivity implements Observer{
 	MapView mapView;
 	Position lastPosition = null;
 	ArrayWayOverlay overlay;
+	ArrayList<String> currentMapsList = new ArrayList<String>();
 	
 	private static final String TAG = LostActivity.class.getSimpleName();
 	
@@ -79,14 +82,29 @@ public class LostActivity extends MapActivity implements Observer{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+       
         mapView = new MapView(this);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setMapFile(new File("/sdcard/maps/austria.map"));
-        
+        mapView.setMapFile(new File("/sdcard/maps/albania.map"));
         setContentView(mapView);
         
+        File externalStorage = Environment.getExternalStorageDirectory(); 
+		String path = externalStorage.getAbsolutePath();
+		
+		File mapsDirectory = new File(path + File.separator + "maps");
+		
+		for (File f : mapsDirectory.listFiles()) { 
+		    if (f.isFile())
+		    {
+		        String name = f.getName(); 
+		        currentMapsList.add(name);
+		    }	         
+		}	
+		
+		Bundle extra = getIntent().getExtras();
+		currentMapsList = extra.getStringArrayList("currentMaps"); 
+
         createOverlay();
         
         observePositionStorage();
@@ -138,7 +156,7 @@ public class LostActivity extends MapActivity implements Observer{
     		case R.id.itemSettings:
     			startActivity(new Intent(this, SettingsActivity.class));
     			return true;
-    		case R.id.itemDownload:
+    		case R.id.itemMaps:
     			startActivity(new Intent(this, MapListActivity.class));
     		
     	}

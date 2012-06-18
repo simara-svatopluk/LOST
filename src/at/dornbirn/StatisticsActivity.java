@@ -90,7 +90,7 @@ public class StatisticsActivity extends Activity implements Observer{
     		case R.id.itemSettings:
     			startActivity(new Intent(this, SettingsActivity.class));
     			return true;
-    		case R.id.itemDownload:
+    		case R.id.itemMaps:
     			startActivity(new Intent(this, MapListActivity.class));
     	}
     
