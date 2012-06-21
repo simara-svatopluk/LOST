@@ -16,6 +16,7 @@ import back.Position;
 import back.PositionStorage;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -116,15 +117,18 @@ public class LostActivity extends MapActivity implements Observer{
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
 
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        
         Bundle extra = getIntent().getExtras();
-        if(extra == null){;
-        	extra = new Bundle();
-        	mapView.setMapFile(new File("/sdcard/maps/austria.map"));
+        if(extra != null){
+        	String focusedMap = extra.getString("map");
+        	SharedPreferences.Editor editor = preferences.edit();
+        	editor.putString("map", focusedMap);
+        	editor.commit();
         }
-        else{
-    		String focusedMap = extra.getString("map");
-    		mapView.setMapFile(new File("/sdcard/maps/" + focusedMap));
-        }
+        
+        String focusedMap = preferences.getString("map", "austria.map");
+        mapView.setMapFile(new File("/sdcard/maps/" + focusedMap));
         	
         createOverlay();
         
