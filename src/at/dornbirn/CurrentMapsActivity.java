@@ -48,9 +48,9 @@ public class CurrentMapsActivity extends Activity{
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 					Object o = mapNames.getItemAtPosition(position);
-					Intent intent = new Intent(getApplicationContext(), DownloadNewMapActivity.class); 
+					Intent intent = new Intent(getApplicationContext(), LostActivity.class); 
 					Bundle bundle = new Bundle();  
-					bundle.putStringArrayList("currentMaps", currentMapsList);  
+					bundle.putString("map", o.toString());
 					intent.putExtras(bundle);  
 					startActivity(intent);					
 			} 

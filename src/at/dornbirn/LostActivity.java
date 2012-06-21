@@ -82,7 +82,6 @@ public class LostActivity extends MapActivity implements Observer{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         
         setContentView(R.layout.map_view);
         
@@ -90,8 +89,17 @@ public class LostActivity extends MapActivity implements Observer{
         
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setMapFile(new File("/sdcard/maps/austria.map"));
-        
+
+        Bundle extra = getIntent().getExtras();
+        if(extra == null){;
+        	extra = new Bundle();
+        	mapView.setMapFile(new File("/sdcard/maps/albania.map"));
+        }
+        else{
+    		String focusedMap = extra.getString("map");
+    		mapView.setMapFile(new File("/sdcard/maps/" + focusedMap));
+        }
+        	
         createOverlay();
         
         observePositionStorage();

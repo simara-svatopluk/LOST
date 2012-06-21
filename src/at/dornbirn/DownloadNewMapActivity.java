@@ -66,22 +66,7 @@ public class DownloadNewMapActivity extends Activity{
 		 incomingDataList = extra.getStringArrayList("countries");  
 		 mapNames.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, incomingDataList));
 		 }
-	protected void mapDownloadingAlert() {
-		AlertDialog msg = new AlertDialog.Builder(DownloadNewMapActivity.this).create();
-	    msg.setTitle("Error!");
-	    msg.setMessage("cannot downloaded.");
-	    msg.setCancelable(false);
-	    //msg.setButton("Cancel", (DialogInterface.OnClickListener) null);
-	     
-	    msg.show();
-	}
 	
-	 public boolean isOnline() { 
-	 	ConnectivityManager cm =  (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE); 
- 			boolean val = cm.getActiveNetworkInfo() != null &&  
- 				cm.getActiveNetworkInfo().isConnectedOrConnecting();
- 			return val;
-	 }
 	
 	 
 	private class DownloadFile extends AsyncTask<String, Integer, String>{
@@ -131,11 +116,7 @@ public class DownloadNewMapActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				Log.d("x", "1");
 				mProgressDialog.dismiss();
-				Log.d("x", "2");
-				mapDownloadingAlert();
-				Log.d("x", "3");
 				e.printStackTrace();
 			}
 			return null;
