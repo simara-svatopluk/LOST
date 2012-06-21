@@ -15,15 +15,39 @@
 	
 	</org.mapsforge.android.maps.MapView >
 	
+	
+	<LinearLayout
+                android:id="@+id/buttons"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+            >
+            
+      <ToggleButton android:id="@+id/bGps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="GPS"
+            android:textOff="GPS"
+            android:disabledAlpha="1.2"
+            android:checked="true"
+            android:onClick="bGpsSwitchClicked"
+            />
+             
 	 <ToggleButton android:id="@+id/bLock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:textOn="Locked"
             android:textOff="Free"
             android:disabledAlpha="1.2"
             android:checked="false"
             android:onClick="bLockClicked"
             />
+	 
+	 
+	
+	 
+	 
+	 </LinearLayout>
 
 </RelativeLayout>

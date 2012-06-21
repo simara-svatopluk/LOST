@@ -133,7 +133,7 @@ public class LostActivity extends MapActivity implements Observer{
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-      //  startService(new Intent(this, PositionUpdater.class)); // start positioning service
+        //startService(new Intent(this, PositionUpdater.class)); // start positioning service
         /*
          * OR turn On DisconnectedPositionUpdater 
          */
@@ -205,11 +205,34 @@ public class LostActivity extends MapActivity implements Observer{
     	{
     		locked = false;
     		mapView.setClickable(true);
-    		mapView.setCenter(new GeoPoint(lastPosition.getLat(), lastPosition.getLon()));
+    		
+    		if(lastPosition != null)
+    		{
+    			mapView.setCenter(new GeoPoint(lastPosition.getLat(), lastPosition.getLon()));
+    		}
     	}
     	
     	
     	
     }
+    
+    public void bGpsSwitchClicked(View view)
+    {
+    	ToggleButton b = (ToggleButton) view;
+    	
+    	if(b.isChecked())
+    	{
+    	
+    		startService(new Intent(this, PositionUpdater.class));
+    	}
+    	
+    	else
+    	{
+    		stopService(new Intent(this, PositionUpdater.class));    	
+    	}
+    	
+    	
+    }
+    
     
 }

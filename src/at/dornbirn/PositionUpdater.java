@@ -42,6 +42,9 @@ public class PositionUpdater extends Service implements LocationListener
 		
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
 		
+		// !!
+		//lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, this);
+		
 		
 		Location last = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);		
 		if(last != null)
@@ -66,6 +69,9 @@ public class PositionUpdater extends Service implements LocationListener
 	public void onDestroy()
 	{
 		super.onDestroy();
+		
+		lm.removeUpdates(this);
+		
 		Log.d(TAG, "On destroy");
 	}
 	
