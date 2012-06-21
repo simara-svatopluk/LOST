@@ -1,6 +1,7 @@
 package at.dornbirn;
 
 import java.io.File;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -42,7 +43,7 @@ public class LostActivity extends MapActivity implements Observer{
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(color);
         paint.setAlpha(160);
-        paint.setStrokeWidth(4);
+        paint.setStrokeWidth(6);
         paint.setStrokeCap(Paint.Cap.BUTT);
         paint.setStrokeJoin(Paint.Join.ROUND);
         return paint;
@@ -70,12 +71,37 @@ public class LostActivity extends MapActivity implements Observer{
     }
     
     /**
+     * creates path by existing data from position storage
+     */
+    protected void createExistingPath(){
+    	PositionStorage positionStorage = ((LostApplication) this.getApplication()).getPositionStorage();
+    	List<Position> positions = positionStorage.getAll();
+    	if(positions.size() > 1){
+    		GeoPoint[][] points = new GeoPoint[1][positions.size()];
+    		int counter = 0;
+    		for(Position p : positions){
+    			points[0][counter] = new GeoPoint(p.getLat(), p.getLon());
+    			counter++;
+    		}
+            OverlayWay way = new OverlayWay(points);
+            overlay.addWay(way);
+        	try {
+    			lastPosition = positionStorage.getLastPosition();
+    		} catch (NoSuchFieldException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    /**
      * Creates overlay on mapView
      */
     protected void createOverlay(){
         Paint outline = lineColor(Color.MAGENTA);
         overlay = new ArrayWayOverlay(null, outline);
         mapView.getOverlays().add(overlay);
+        createExistingPath();
     }
     
     /** Called when the activity is first created. */
@@ -93,7 +119,7 @@ public class LostActivity extends MapActivity implements Observer{
         Bundle extra = getIntent().getExtras();
         if(extra == null){;
         	extra = new Bundle();
-        	mapView.setMapFile(new File("/sdcard/maps/albania.map"));
+        	mapView.setMapFile(new File("/sdcard/maps/austria.map"));
         }
         else{
     		String focusedMap = extra.getString("map");
