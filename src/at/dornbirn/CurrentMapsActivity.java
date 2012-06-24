@@ -49,7 +49,8 @@ public class CurrentMapsActivity extends Activity{
 					Intent intent = new Intent(getApplicationContext(), LostActivity.class); 
 					Bundle bundle = new Bundle();  
 					bundle.putString("map", o.toString());
-					intent.putExtras(bundle);  
+					intent.putExtras(bundle);
+					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 					startActivity(intent);					
 			} 
 		});
