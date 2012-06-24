@@ -182,7 +182,7 @@ public class DownloadNewMapActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			mProgressDialog.setMessage("Downloading...");
-			mProgressDialog.setCancelable(true);
+			mProgressDialog.setCancelable(false);
 			mProgressDialog.show();
 		}
 

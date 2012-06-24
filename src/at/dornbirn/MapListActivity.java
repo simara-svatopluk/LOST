@@ -33,7 +33,7 @@ public class MapListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_options);
 
-		String[] Options = { "Download new map", "Current maps" };
+		String[] Options = { "Download new map", "Current maps", "Reset" };
 		ListView list = (ListView) findViewById(R.id.list);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.listitem, Options);
