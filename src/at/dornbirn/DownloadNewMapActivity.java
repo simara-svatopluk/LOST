@@ -167,7 +167,7 @@ public class DownloadNewMapActivity extends Activity {
 				DownloadNewMapActivity.this
 				.runOnUiThread(new Runnable() {
 					public void run() {
-						alertDialog.setTitle("Error!");
+						alertDialog.setTitle("Alert!");
 						alertDialog.setMessage("You already have this file.");
 						alertDialog.show();
 					}

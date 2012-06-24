@@ -101,10 +101,13 @@ public class MapListActivity extends Activity {
 							}
 						}
 					}
-				} else {
+				} else if(position == 1) {
 					Intent intent = new Intent(getApplicationContext(),
 							CurrentMapsActivity.class);
 					startActivity(intent);
+				}
+				else{
+					
 				}
 			}
 		});

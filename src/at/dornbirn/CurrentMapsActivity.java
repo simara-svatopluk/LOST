@@ -2,6 +2,7 @@ package at.dornbirn;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,7 +39,7 @@ public class CurrentMapsActivity extends Activity{
 		        currentMapsList.add(name);
 		    }	         
 		}	
-		
+		Collections.sort(currentMapsList);
 		mapNames.setClickable(true);
 		
 		mapNames.setOnItemClickListener(new OnItemClickListener() { 			 
