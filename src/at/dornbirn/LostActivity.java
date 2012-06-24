@@ -103,7 +103,6 @@ public class LostActivity extends MapActivity implements Observer{
         overlay = new ArrayWayOverlay(null, outline);
         mapView.getOverlays().clear();
         mapView.getOverlays().add(overlay);
-        
     }
     
     /** Called when the activity is first created. */
@@ -131,16 +130,17 @@ public class LostActivity extends MapActivity implements Observer{
         String focusedMap = preferences.getString("map", "austria.map");
         mapView.setMapFile(new File("/sdcard/maps/" + focusedMap));
         createOverlay();
+        createExistingPath();
         observePositionStorage();
         
         /*
          * TODO find out what's causing problem in your emulator(s)
          */
-        //startService(new Intent(this, PositionUpdater.class)); // start positioning service
+        startService(new Intent(this, PositionUpdater.class)); // start positioning service
         /*
          * OR turn On DisconnectedPositionUpdater 
          */
-          startService(new Intent(this, DisconnectedPositionUpdater.class));
+       //   startService(new Intent(this, DisconnectedPositionUpdater.class));
     }
     
     @Override
