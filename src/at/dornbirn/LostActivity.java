@@ -101,6 +101,7 @@ public class LostActivity extends MapActivity implements Observer{
     protected void createOverlay(){
         Paint outline = lineColor(Color.MAGENTA);
         overlay = new ArrayWayOverlay(null, outline);
+        mapView.getOverlays().clear();
         mapView.getOverlays().add(overlay);
         createExistingPath();
     }
@@ -140,10 +141,24 @@ public class LostActivity extends MapActivity implements Observer{
          * OR turn On DisconnectedPositionUpdater 
          */
           startService(new Intent(this, DisconnectedPositionUpdater.class));
-        
-        
-
-        
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	try{
+    		Bundle extras = this.getIntent().getExtras();
+	    	boolean reseted = extras.getBoolean("reset", false);
+	    	if(reseted){
+	    		createOverlay();
+	    	}
+    	}catch(NullPointerException e){ }
     }
 
 	@Override

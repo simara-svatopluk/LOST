@@ -115,6 +115,14 @@ public class MapListActivity extends Activity {
 					
 					Statistics statistics = ((LostApplication) MapListActivity.this.getApplication()).getStatistics();
 					statistics.reset();
+					
+					Bundle bundle = new Bundle();
+					bundle.putBoolean("reset", true);
+					
+					Intent intent = new Intent(getApplicationContext(), LostActivity.class);
+					intent.putExtras(bundle);
+					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					startActivity(intent);
 				}
 			}
 		});
