@@ -101,8 +101,9 @@ public class LostActivity extends MapActivity implements Observer{
     protected void createOverlay(){
         Paint outline = lineColor(Color.MAGENTA);
         overlay = new ArrayWayOverlay(null, outline);
+        mapView.getOverlays().clear();
         mapView.getOverlays().add(overlay);
-        createExistingPath();
+        
     }
     
     /** Called when the activity is first created. */
@@ -140,10 +141,24 @@ public class LostActivity extends MapActivity implements Observer{
          * OR turn On DisconnectedPositionUpdater 
          */
           startService(new Intent(this, DisconnectedPositionUpdater.class));
-        
-        
-
-        
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	try{
+    		Bundle extras = this.getIntent().getExtras();
+	    	boolean reseted = extras.getBoolean("reset", false);
+	    	if(reseted){
+	    		createOverlay();
+	    	}
+    	}catch(NullPointerException e){ }
     }
 
 	@Override
@@ -173,16 +188,26 @@ public class LostActivity extends MapActivity implements Observer{
     {
     	switch (item.getItemId())
     	{
-    		case R.id.itemStats:
-    			startActivity(new Intent(this, StatisticsActivity.class));
-    			return true;
-    		case R.id.itemCurrentPlan:
-    			return true;
-    		case R.id.itemSettings:
-    			startActivity(new Intent(this, SettingsActivity.class));
-    			return true;
-    		case R.id.itemMaps:
-    			startActivity(new Intent(this, MapListActivity.class));
+	    	case R.id.itemStats:
+				Intent intent = new Intent(this, StatisticsActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent);
+				return true;
+			case R.id.itemCurrentPlan:
+			/*	Intent intent2 = new Intent(this, LostActivity.class);
+				intent2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent2);*/
+				return true;
+			case R.id.itemSettings:
+				Intent intent3 = new Intent(this, PosViewActivity.class);
+				intent3.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent3);
+				return true;
+			case R.id.itemMaps:
+				Intent intent4 = new Intent(this, MapListActivity.class);
+				intent4.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent4);
+				return true;
     		
     	}
     

@@ -45,8 +45,6 @@
         <activity android:name=".PosViewActivity">
         </activity>
         
-        <activity android:name=".SettingsActivity">
-        </activity>
         
         <activity android:name=".MapListActivity">
         </activity>

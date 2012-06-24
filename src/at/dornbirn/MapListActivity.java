@@ -86,6 +86,7 @@ public class MapListActivity extends Activity {
 
 							Intent intent = new Intent(getApplicationContext(),
 									DownloadNewMapActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 							Bundle bundle = new Bundle();
 							bundle.putStringArrayList("countries", countries);
 							intent.putExtras(bundle);
@@ -107,6 +108,7 @@ public class MapListActivity extends Activity {
 				} else if(position == 1) {
 					Intent intent = new Intent(getApplicationContext(),
 							CurrentMapsActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 					startActivity(intent);
 				}
 				else{
@@ -115,6 +117,14 @@ public class MapListActivity extends Activity {
 					
 					Statistics statistics = ((LostApplication) MapListActivity.this.getApplication()).getStatistics();
 					statistics.reset();
+					
+					Bundle bundle = new Bundle();
+					bundle.putBoolean("reset", true);
+					
+					Intent intent = new Intent(getApplicationContext(), LostActivity.class);
+					intent.putExtras(bundle);
+					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					startActivity(intent);
 				}
 			}
 		});
@@ -150,17 +160,26 @@ public class MapListActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.itemMaps:
-			return true;
-		case R.id.itemStats:
-			startActivity(new Intent(this, StatisticsActivity.class));
-			return true;
-		case R.id.itemCurrentPlan:
-			startActivity(new Intent(this, LostActivity.class));
-			return true;
-		case R.id.itemSettings:
-			startActivity(new Intent(this, SettingsActivity.class));
-			return true;
+			case R.id.itemStats:
+				Intent intent = new Intent(this, StatisticsActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent);
+				return true;
+			case R.id.itemCurrentPlan:
+				Intent intent2 = new Intent(this, LostActivity.class);
+				intent2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent2);
+				return true;
+			case R.id.itemSettings:
+				Intent intent3 = new Intent(this, PosViewActivity.class);
+				intent3.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent3);
+				return true;
+			case R.id.itemMaps:
+			/*	Intent intent4 = new Intent(this, MapListActivity.class);
+				intent4.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent4);*/
+				return true;
 		}
 
 		return super.onOptionsItemSelected(item);

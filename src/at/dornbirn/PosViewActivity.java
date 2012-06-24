@@ -123,16 +123,25 @@ public class PosViewActivity extends ListActivity implements Observer
     	switch (item.getItemId())
     	{
     		case R.id.itemStats:
-    			startActivity(new Intent(this, StatisticsActivity.class));
+    			Intent intent = new Intent(this, StatisticsActivity.class);
+    			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    			startActivity(intent);
     			return true;
     		case R.id.itemCurrentPlan:
-    			startActivity(new Intent(this, LostActivity.class));
+    			Intent intent2 = new Intent(this, LostActivity.class);
+    			intent2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    			startActivity(intent2);
     			return true;
     		case R.id.itemSettings:
-    			startActivity(new Intent(this, SettingsActivity.class));
+    		/*	Intent intent3 = new Intent(this, SettingsActivity.class);
+    			intent3.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    			startActivity(intent3);*/
     			return true;
     		case R.id.itemMaps:
-    			startActivity(new Intent(this, MapListActivity.class));
+    			Intent intent4 = new Intent(this, MapListActivity.class);
+    			intent4.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    			startActivity(intent4);
+    			return true;
     	}
     
     	return super.onOptionsItemSelected(item);
