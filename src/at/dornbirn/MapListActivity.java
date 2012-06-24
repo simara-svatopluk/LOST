@@ -86,6 +86,7 @@ public class MapListActivity extends Activity {
 
 							Intent intent = new Intent(getApplicationContext(),
 									DownloadNewMapActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 							Bundle bundle = new Bundle();
 							bundle.putStringArrayList("countries", countries);
 							intent.putExtras(bundle);
@@ -107,6 +108,7 @@ public class MapListActivity extends Activity {
 				} else if(position == 1) {
 					Intent intent = new Intent(getApplicationContext(),
 							CurrentMapsActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 					startActivity(intent);
 				}
 				else{

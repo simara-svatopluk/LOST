@@ -103,7 +103,7 @@ public class LostActivity extends MapActivity implements Observer{
         overlay = new ArrayWayOverlay(null, outline);
         mapView.getOverlays().clear();
         mapView.getOverlays().add(overlay);
-        createExistingPath();
+        
     }
     
     /** Called when the activity is first created. */
