@@ -50,13 +50,6 @@
         android:text="@+id/lon"
         android:textSize="17sp"
          />
-     
-       
-     </LinearLayout>
-    
-
-        
-           
 
     <TextView
         android:id="@+id/alt"
@@ -64,5 +57,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@+id/alt" />
+       
+     </LinearLayout>
 
 </LinearLayout>
