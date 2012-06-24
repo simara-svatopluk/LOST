@@ -15,7 +15,9 @@ import java.util.StringTokenizer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,15 +32,21 @@ public class DownloadNewMapActivity extends Activity {
 	private ListView mapNames;
 	private ArrayList<String> incomingDataList;
 	BufferedReader reader = null;
-	
+
 	File externalStorage = Environment.getExternalStorageDirectory();
-	String path = externalStorage.getAbsolutePath();	/*	path = .../sdcard	*/
-	
+	String path = externalStorage.getAbsolutePath(); /* path = .../sdcard */
+
 	ProgressDialog mProgressDialog;
 	AlertDialog.Builder alertDialogBuilder;
 	AlertDialog alertDialog;
 
-	protected Handler handler = new Handler();
+	public static boolean isNetworkConnected(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		return (cm.getActiveNetworkInfo() != null
+				&& cm.getActiveNetworkInfo().isAvailable() && cm
+				.getActiveNetworkInfo().isConnected());
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,7 @@ public class DownloadNewMapActivity extends Activity {
 		mProgressDialog.setIndeterminate(false);
 		mProgressDialog.setMax(100);
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		
+
 		alertDialogBuilder = new AlertDialog.Builder(
 				DownloadNewMapActivity.this);
 		alertDialogBuilder.setCancelable(false);
@@ -67,13 +75,19 @@ public class DownloadNewMapActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				Object o = mapNames.getItemAtPosition(position);
+				if (isNetworkConnected(DownloadNewMapActivity.this) == true) {
+					Object o = mapNames.getItemAtPosition(position);
 
-				String url = "http://download.mapsforge.org/maps/europe/"
-						+ o.toString();
+					String url = "http://download.mapsforge.org/maps/europe/"
+							+ o.toString();
 
-				DownloadFile downloadFile = new DownloadFile();
-				downloadFile.execute(url);
+					DownloadFile downloadFile = new DownloadFile();
+					downloadFile.execute(url);
+				} else {
+					alertDialog.setTitle("Connection failed!");
+					alertDialog.setMessage("Map file couldn't downloaded.");
+					alertDialog.show();
+				}
 			}
 		});
 
@@ -82,16 +96,15 @@ public class DownloadNewMapActivity extends Activity {
 		mapNames.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_selectable_list_item, incomingDataList));
 	}
-	
-	public boolean hasItem(Object o){			
+
+	public boolean hasItem(Object o) {
 		File mapsDirectory = new File(path + File.separator + "maps");
-		for (File f : mapsDirectory.listFiles()) { 
-		    if (f.isFile() && (f.getName().equals(o.toString()) == true))
-		    {
-		        return true;
-		    }	         
-		}	
-		return false;	
+		for (File f : mapsDirectory.listFiles()) {
+			if (f.isFile() && (f.getName().equals(o.toString()) == true)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private class DownloadFile extends AsyncTask<String, Integer, String> {
@@ -109,8 +122,8 @@ public class DownloadNewMapActivity extends Activity {
 				String token = (String) tokenizer.nextElement();
 				fileName = token;
 			}
-			
-			if(hasItem(fileName) == false){
+
+			if (hasItem(fileName) == false) {
 				filePath = path + File.separator + "maps" + File.separator
 						+ fileName + File.separator;
 				File file = new File(filePath);
@@ -142,14 +155,16 @@ public class DownloadNewMapActivity extends Activity {
 							DownloadNewMapActivity.this
 									.runOnUiThread(new Runnable() {
 										public void run() {
-											alertDialog.setTitle("Connection failed!");
-											alertDialog.setMessage("Map file couldn't downloaded.");
+											alertDialog
+													.setTitle("Connection failed!");
+											alertDialog
+													.setMessage("Map file couldn't downloaded.");
 											alertDialog.show();
 										}
 									});
 						}
-						File incorrect = new File(filePath); 
-						incorrect.delete(); 
+						File incorrect = new File(filePath);
+						incorrect.delete();
 					} finally {
 						fos.flush();
 						fos.close();
@@ -162,10 +177,8 @@ public class DownloadNewMapActivity extends Activity {
 					mProgressDialog.dismiss();
 					e.printStackTrace();
 				}
-			}
-			else{
-				DownloadNewMapActivity.this
-				.runOnUiThread(new Runnable() {
+			} else {
+				DownloadNewMapActivity.this.runOnUiThread(new Runnable() {
 					public void run() {
 						alertDialog.setTitle("Alert!");
 						alertDialog.setMessage("You already have this file.");
@@ -173,8 +186,6 @@ public class DownloadNewMapActivity extends Activity {
 					}
 				});
 			}
-
-			
 			return null;
 		}
 
