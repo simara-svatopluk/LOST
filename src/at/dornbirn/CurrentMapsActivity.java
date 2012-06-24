@@ -7,18 +7,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class CurrentMapsActivity extends Activity{
 	private ArrayList<String> currentMapsList;
 	private ListView mapNames;
-	TextView t;
+	
+	File externalStorage = Environment.getExternalStorageDirectory(); 
+	String path = externalStorage.getAbsolutePath();	
+	File mapsDirectory = new File(path + File.separator + "maps");
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,12 +30,7 @@ public class CurrentMapsActivity extends Activity{
 		mapNames = (ListView) findViewById(R.id.listViewMaps);
 		mapNames.setClickable(true);
 		mapNames.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, currentMapsList));
-		
-		File externalStorage = Environment.getExternalStorageDirectory(); 
-		String path = externalStorage.getAbsolutePath();
-		
-		File mapsDirectory = new File(path + File.separator + "maps");
-		
+
 		for (File f : mapsDirectory.listFiles()) { 
 		    if (f.isFile())
 		    {
@@ -56,6 +53,4 @@ public class CurrentMapsActivity extends Activity{
 			} 
 		});
 	}
-	
-	
 }

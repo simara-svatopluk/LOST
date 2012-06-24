@@ -12,18 +12,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import android.R.string;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,6 +30,10 @@ public class DownloadNewMapActivity extends Activity {
 	private ListView mapNames;
 	private ArrayList<String> incomingDataList;
 	BufferedReader reader = null;
+	
+	File externalStorage = Environment.getExternalStorageDirectory();
+	String path = externalStorage.getAbsolutePath();	/*	path = .../sdcard	*/
+	
 	ProgressDialog mProgressDialog;
 	AlertDialog.Builder alertDialogBuilder;
 	AlertDialog alertDialog;
@@ -49,11 +49,9 @@ public class DownloadNewMapActivity extends Activity {
 		mProgressDialog.setIndeterminate(false);
 		mProgressDialog.setMax(100);
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-
+		
 		alertDialogBuilder = new AlertDialog.Builder(
 				DownloadNewMapActivity.this);
-		alertDialogBuilder.setTitle("Error!");
-		alertDialogBuilder.setMessage("Map file couldn't downloaded!");
 		alertDialogBuilder.setCancelable(false);
 		alertDialogBuilder.setPositiveButton("OK",
 				new DialogInterface.OnClickListener() {
@@ -84,6 +82,17 @@ public class DownloadNewMapActivity extends Activity {
 		mapNames.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_selectable_list_item, incomingDataList));
 	}
+	
+	public boolean hasItem(Object o){			
+		File mapsDirectory = new File(path + File.separator + "maps");
+		for (File f : mapsDirectory.listFiles()) { 
+		    if (f.isFile() && (f.getName().equals(o.toString()) == true))
+		    {
+		        return true;
+		    }	         
+		}	
+		return false;	
+	}
 
 	private class DownloadFile extends AsyncTask<String, Integer, String> {
 
@@ -92,9 +101,6 @@ public class DownloadNewMapActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... sUrl) {
-			File externalStorage = Environment.getExternalStorageDirectory();
-			String path = externalStorage.getAbsolutePath();
-
 			// sURL = http://download.mapsforge.org/maps/europe/blabla.map
 			String str = sUrl[0];
 			String tkn = "/";
@@ -103,56 +109,72 @@ public class DownloadNewMapActivity extends Activity {
 				String token = (String) tokenizer.nextElement();
 				fileName = token;
 			}
-
-			filePath = path + File.separator + "maps" + File.separator
-					+ fileName + File.separator;
-			File file = new File(filePath);
-
-			try {
-				URL url = new URL(sUrl[0]);
-				HttpURLConnection con = (HttpURLConnection) url
-						.openConnection();
-
-				reader = new BufferedReader(new InputStreamReader(
-						con.getInputStream()));
-				FileOutputStream fos;
-				fos = new FileOutputStream(file);
-
-				InputStream inputStream = con.getInputStream();
-				byte[] data = new byte[1024];
-				long total = 0;
-				int count;
-				int fileLength = con.getContentLength();
+			
+			if(hasItem(fileName) == false){
+				filePath = path + File.separator + "maps" + File.separator
+						+ fileName + File.separator;
+				File file = new File(filePath);
 
 				try {
-					while ((count = inputStream.read(data)) > 0) {
-						total += count;
-						publishProgress((int) (total * 100 / fileLength));
-						fos.write(data, 0, count);
+					URL url = new URL(sUrl[0]);
+					HttpURLConnection con = (HttpURLConnection) url
+							.openConnection();
+
+					reader = new BufferedReader(new InputStreamReader(
+							con.getInputStream()));
+					FileOutputStream fos;
+					fos = new FileOutputStream(file);
+
+					InputStream inputStream = con.getInputStream();
+					byte[] data = new byte[1024];
+					long total = 0;
+					int count;
+					int fileLength = con.getContentLength();
+
+					try {
+						while ((count = inputStream.read(data)) > 0) {
+							total += count;
+							publishProgress((int) (total * 100 / fileLength));
+							fos.write(data, 0, count);
+						}
+					} catch (IOException e) {
+						if (fileLength != total) {
+							DownloadNewMapActivity.this
+									.runOnUiThread(new Runnable() {
+										public void run() {
+											alertDialog.setTitle("Connection failed!");
+											alertDialog.setMessage("Map file couldn't downloaded.");
+											alertDialog.show();
+										}
+									});
+						}
+						File incorrect = new File(filePath); 
+						incorrect.delete(); 
+					} finally {
+						fos.flush();
+						fos.close();
+						inputStream.close();
 					}
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} catch (IOException e) {
-					if (fileLength != total) {
-						DownloadNewMapActivity.this
-								.runOnUiThread(new Runnable() {
-									public void run() {
-										alertDialog.show();
-									}
-								});
-					}
-					File incorrect = new File(filePath); 
-					incorrect.delete(); 
-				} finally {
-					fos.flush();
-					fos.close();
-					inputStream.close();
+					mProgressDialog.dismiss();
+					e.printStackTrace();
 				}
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				mProgressDialog.dismiss();
-				e.printStackTrace();
 			}
+			else{
+				DownloadNewMapActivity.this
+				.runOnUiThread(new Runnable() {
+					public void run() {
+						alertDialog.setTitle("Error!");
+						alertDialog.setMessage("You already have this file.");
+						alertDialog.show();
+					}
+				});
+			}
+
+			
 			return null;
 		}
 
