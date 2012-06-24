@@ -129,9 +129,7 @@ public class LostActivity extends MapActivity implements Observer{
         
         String focusedMap = preferences.getString("map", "austria.map");
         mapView.setMapFile(new File("/sdcard/maps/" + focusedMap));
-        	
         createOverlay();
-        
         observePositionStorage();
         
         /*

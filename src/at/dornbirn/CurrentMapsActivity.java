@@ -56,4 +56,6 @@ public class CurrentMapsActivity extends Activity{
 			} 
 		});
 	}
+	
+	
 }
