@@ -49,6 +49,10 @@ public class DisconnectedPositionUpdater extends Service{
 	
 	private PositionStorage positionStorage;
 	
+	private Position[] tempPos = new Position[3];
+	
+	private int corrLoaded = 0;
+	
 	//default values
 	private double lat = 48.202625, lon = 16.393231, alt = 151;
 	private int delay = 500;
@@ -78,7 +82,43 @@ public class DisconnectedPositionUpdater extends Service{
 		Position p = new Position(newDate, newLat, lon, newAlt);
 		//Log.d(TAG, newDate.toString() + " " + newLat + " " + lon + " " + newAlt);
 		lon += 0.001;
-		positionStorage.addPosition(p);
+	//	positionStorage.addPosition(p);
+		
+		
+		
+		
+		
+
+		tempPos[corrLoaded] = new Position(newDate, newLat, lon, newAlt);
+		corrLoaded++;
+		
+		if(corrLoaded == 3)
+		{
+			corrLoaded = 0;
+			
+			double lat = (tempPos[0].getLat() + 
+				  tempPos[1].getLat() +
+				  tempPos[2].getLat()) / 3;
+			
+			double lon = (tempPos[0].getLon() + 
+					  tempPos[1].getLon() +
+					  tempPos[2].getLon()) / 3;
+			
+			double alt = (tempPos[0].getAltitude() + 
+					  tempPos[1].getAltitude() +
+					  tempPos[2].getAltitude()) / 3;					
+			
+			Position newPos = new Position(new Date(), lat, lon, alt);		
+			
+			positionStorage.addPosition(newPos);		
+		
+		}
+		
+		
+		
+		
+		
+		
 	}
 	
 	@Override

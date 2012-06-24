@@ -27,7 +27,10 @@ public class PositionUpdater extends Service implements LocationListener
 	private PositionStorage positionStorage;
 	
 	private LocationManager lm;
-	
+	 
+	// temporary positions for correction (averaging them)
+	private Position[] tempPos = new Position[3];
+	private int corrLoaded = 0; 
 	
 	
 	// called only once, first time service is started
@@ -80,9 +83,33 @@ public class PositionUpdater extends Service implements LocationListener
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		
-		Position newPos = new Position(new Date(), location.getLatitude(), location.getLongitude(), location.getAltitude());
 		
-		positionStorage.addPosition(newPos);
+		tempPos[corrLoaded] = new Position(new Date(), location.getLatitude(), location.getLongitude(), location.getAltitude());
+		corrLoaded++;
+		
+		if(corrLoaded == 3)
+		{
+			corrLoaded = 0;
+			
+			double lat = (tempPos[0].getLat() + 
+				  tempPos[1].getLat() +
+				  tempPos[2].getLat()) / 3;
+			
+			double lon = (tempPos[0].getLon() + 
+					  tempPos[1].getLon() +
+					  tempPos[2].getLon()) / 3;
+			
+			double alt = (tempPos[0].getAltitude() + 
+					  tempPos[1].getAltitude() +
+					  tempPos[2].getAltitude()) / 3;					
+			
+			Position newPos = new Position(new Date(), lat, lon, alt);		
+			
+			positionStorage.addPosition(newPos);		
+		
+		}
+		
+		
 		
 		
 		
