@@ -161,7 +161,7 @@ public class MapListActivity extends Activity {
 				startActivity(intent2);
 				return true;
 			case R.id.itemSettings:
-				Intent intent3 = new Intent(this, SettingsActivity.class);
+				Intent intent3 = new Intent(this, PosViewActivity.class);
 				intent3.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(intent3);
 				return true;
