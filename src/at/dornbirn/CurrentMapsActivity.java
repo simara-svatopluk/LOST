@@ -50,7 +50,9 @@ public class CurrentMapsActivity extends Activity{
 					Bundle bundle = new Bundle();  
 					bundle.putString("map", o.toString());
 					intent.putExtras(bundle);
-					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					
+					// Why FLAG_ACTIVITY_REORDER_TO_FRONT is not enough? everywhere else it works.
+					intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);					
 			} 
 		});
