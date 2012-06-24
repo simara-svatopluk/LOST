@@ -48,6 +48,12 @@ public class StatisticsActivity extends Activity implements Observer{
 		
 		this.setContentView(R.layout.statistics);
 		
+		reset();
+		
+		created = true;
+	}
+	
+	public void reset(){
 		totalDistance = (TextView) this.findViewById(R.id.statistics_total_distance);
 		totalDistance.setText("x");
 		
@@ -59,8 +65,6 @@ public class StatisticsActivity extends Activity implements Observer{
 		
 		actualSpeed = (TextView) this.findViewById(R.id.statistics_actual_apeed);
 		actualSpeed.setText("x");
-		
-		created = true;
 	}
 	
 	

@@ -77,6 +77,13 @@ public class Statistics extends Observable implements Observer
 	protected Position lastPosition;
 	
 	public Statistics(){
+		reset();
+	}
+	
+	/**
+	 * reset statistics
+	 */
+	public void reset(){
 		totalDistance = 0;
 		totalTime = 0;
 		actualSpeed = 0;

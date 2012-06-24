@@ -8,6 +8,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import back.PositionStorage;
+import back.Statistics;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -107,7 +110,11 @@ public class MapListActivity extends Activity {
 					startActivity(intent);
 				}
 				else{
+					PositionStorage positionStorage = ((LostApplication) MapListActivity.this.getApplication()).getPositionStorage();
+					positionStorage.deleteAll();
 					
+					Statistics statistics = ((LostApplication) MapListActivity.this.getApplication()).getStatistics();
+					statistics.reset();
 				}
 			}
 		});
