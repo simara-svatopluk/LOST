@@ -144,8 +144,6 @@ public class MapListActivity extends Activity {
 			return true;
 		case R.id.itemStats:
 			startActivity(new Intent(this, StatisticsActivity.class));
-		case R.id.itemNewPlan:
-			startActivity(new Intent(this, PlanActivity.class));
 			return true;
 		case R.id.itemCurrentPlan:
 			startActivity(new Intent(this, LostActivity.class));

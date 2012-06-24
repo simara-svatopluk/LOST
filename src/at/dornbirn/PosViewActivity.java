@@ -125,9 +125,6 @@ public class PosViewActivity extends ListActivity implements Observer
     		case R.id.itemStats:
     			startActivity(new Intent(this, StatisticsActivity.class));
     			return true;
-    		case R.id.itemNewPlan:
-    			startActivity(new Intent(this, PlanActivity.class));
-    			return true;
     		case R.id.itemCurrentPlan:
     			startActivity(new Intent(this, LostActivity.class));
     			return true;

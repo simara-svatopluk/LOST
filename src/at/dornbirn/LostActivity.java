@@ -176,9 +176,6 @@ public class LostActivity extends MapActivity implements Observer{
     		case R.id.itemStats:
     			startActivity(new Intent(this, StatisticsActivity.class));
     			return true;
-    		case R.id.itemNewPlan:
-    			startActivity(new Intent(this, PlanActivity.class));
-    			return true;
     		case R.id.itemCurrentPlan:
     			return true;
     		case R.id.itemSettings:

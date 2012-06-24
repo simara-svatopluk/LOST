@@ -79,10 +79,6 @@ public class StatisticsActivity extends Activity implements Observer{
     	switch (item.getItemId())
     	{
     		case R.id.itemStats:
-    		
-    			return true;
-    		case R.id.itemNewPlan:	    		
-    			startActivity(new Intent(this, PlanActivity.class));
     			return true;
     		case R.id.itemCurrentPlan:
     			startActivity(new Intent(this, LostActivity.class));
