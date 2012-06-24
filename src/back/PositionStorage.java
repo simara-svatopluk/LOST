@@ -71,4 +71,9 @@ public class PositionStorage extends Observable{
 		
 		return positions.subList(start, end);
 	}
+	
+	public void deleteAll()
+	{
+		positions.clear();	
+	}
 }

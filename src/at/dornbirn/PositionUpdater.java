@@ -43,7 +43,7 @@ public class PositionUpdater extends Service implements LocationListener
 		
 		positionStorage = ((LostApplication) this.getApplication()).getPositionStorage();
 		
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
 		
 		// !!
 		//lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, this);
