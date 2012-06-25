@@ -119,7 +119,7 @@ public class MapListActivity extends Activity {
 					statistics.reset();
 					
 					Bundle bundle = new Bundle();
-					bundle.putBoolean("reset", true);
+					bundle.putBoolean("reset", true);  
 					
 					Intent intent = new Intent(getApplicationContext(), LostActivity.class);
 					intent.putExtras(bundle);
